@@ -3,13 +3,13 @@ module synch_edge_det (
     output logic edge_flag
 );
 
-logic sync_1, sync_2, q, sync_out;
+logic sync_1, sync_2, q;
 
 always_ff @(posedge clk, negedge n_rst) 
 begin: SYNC
     if(!n_rst) begin
-        sync_1 <= 0;
-        sync_2 <= 0;
+        sync_1 <= 1'b0;
+        sync_2 <= 1'b0;
     end else begin
         sync_1 <= async_in;
         sync_2 <= sync_1;
