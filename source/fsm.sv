@@ -1,26 +1,24 @@
-module FSM
+module fsm
 (
 input logic clk, 
 input logic n_rst,
-input logic 1start,
-input logic 10start,
-input logic pause;
-input logic clr;
-output logic 10_run_push;
-output logic 1_run_push;
-output logic pause_push;
-output logic clear_push;
+input logic onestart,
+input logic tenstart,
+input logic pause,
+input logic clr,
+output logic ten_run_push,
+output logic one_run_push,
+output logic pause_push,
+output logic clear_push
 ); 
 
- typdef enum logic [2:0] {CLEAR, 1RUN, 10RUN, PAUSE} State;
+  typedef enum logic [4:0] {CLEAR, ONERUN, TENRUN, PAUSE} State;
  
- State currentState, nextState;
-
+  State currentState, nextState;
 
   always_ff @(posedge clk, negedge n_rst)
-  
-  if(!n_rst) currentState <= CLEAR;
-  else currentState <= nextState;
+     if(!n_rst) currentState <= CLEAR;
+     else currentState <= nextState;
   
   
 
@@ -29,28 +27,31 @@ output logic clear_push;
 
    case(currentState)
     
-    CLEAR: begin if(10start) nextState = 10RUN;
-           else if(1start) nextState = 1RUN;
+    CLEAR: begin if(tenstart) nextState = TENRUN;
+           else if(onestart) nextState = ONERUN;
            else nextState = CLEAR;
            end 
-    1RUN:  begin  if(pause) nextstate = PAUSE;
+    ONERUN:  begin  if(pause) nextState = PAUSE;
            else if (clr) nextState = CLEAR;
-           else begin
-             nextState = 1RUN
+           else nextState = ONERUN;
            end
-    10RUN: begin  if(pause) nextState = PAUSE;
+    TENRUN: begin  if(pause) nextState = PAUSE;
 	   else if (clr) nextState = CLEAR;
-           else  nextState = 10RUN
+           else  nextState = TENRUN;
            end 
-    PAUSE: begin if(1start) nextState = 1RUN;
-           else if(10start) nextState = 10RUN;
-           else if(rst) nextState = CLEAR;
+    PAUSE: begin if(onestart) nextState = ONERUN;
+           else if(tenstart) nextState = TENRUN;
+           else if(clr) nextState = CLEAR;
            else nextState = PAUSE;
            end
-   endcase
-   
+
    default: nextState = CLEAR;
-  
-  
+    
+   endcase 
+    
+   assign one_run_push = (currentState == ONERUN);
+   assign ten_run_push = (currentState == TENRUN);
+   assign pause_push = (currentState == PAUSE);
+   assign clear_push = (currentState == CLEAR);
 endmodule
 
