@@ -5,9 +5,11 @@ module timer
 		input logic clk, 
 		input logic enable,
 		input logic n_rst,
-		output logic [24:0] cycles,
 		output logic second_tick
 	);
+
+
+	logic [24:0] cycles;
 	
 	always @(posedge clk, posedge n_rst) begin
 		//reset timer

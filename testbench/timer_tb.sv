@@ -7,13 +7,11 @@ module tb_timer();
 	logic enable;
 	logic n_rst;
 	logic second_tick;
-	logic [24:0] cycles;
 
 	timer DUT(
 		.clk,
 		.enable,
 		.n_rst,
-		.cycles, 
 		.second_tick
 	);
 
@@ -60,8 +58,5 @@ module tb_timer();
 	
 		if (second_tick == 1)
 			$display("Passed test 3!");
-		else
-			$display("cycles: %d", cycles);
-
 	end
 endmodule
