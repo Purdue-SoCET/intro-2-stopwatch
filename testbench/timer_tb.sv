@@ -5,11 +5,13 @@ module tb_timer();
 	
 	logic clk;
 	logic enable;
+	logic n_rst;
 	logic second_tick;
 
 	timer DUT(
 		.clk,
 		.enable,
+		.n_rst,
 		.second_tick
 	);
 
@@ -20,21 +22,41 @@ module tb_timer();
 		clk = 1'b0;
 	endtask
 
+	task reset_clock();
+		n_rst = 1;
+		#(1);
+		n_rst = 0;
+	endtask
+
+	integer i;
 	initial begin
 		enable = 1;
 		
-		for (int i=0; i < 9_999_950; i++) begin 
-			//advance clock
+		$display("Running test 1: 1 second");
+		for (int a = 1; a <= 10_000_000; a++) begin
+			advance_clock();
+			if (second_tick == 1)
+				if (a + i == 10_000_000)
+					$display("Passed test 1!");
+		end
+
+
+		//reset clock
+		//TEST 2 - RESET
+		//TEST 2 - FULL
+		$display("Running test 2: reset test");
+		reset_clock();
+		if (second_tick == 0)
+			$display("Passed test 2!");
+			
+
+		$display("Running test 3: 10 seconds");
+		for (int b = 0; b < 100_000_000; b=b+1) begin
 			advance_clock();
 		end
 
-		for (int a = 0; a < 100; a++) begin
-			advance_clock();
-			if (second_tick == 1) begin
-				$display("%d tick!", a+9_999_950);
-			end else begin
-				$display("%d tock!", a+9_999_950);
-			end
-		end
+	
+		if (second_tick == 1)
+			$display("Passed test 3!");
 	end
 endmodule
