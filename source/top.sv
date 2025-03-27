@@ -1,6 +1,6 @@
 module top (
     input logic one_button, ten_button, pause, clear,
-    output logic [7:0] ssd
+    // add other input/output as necessary
 );
 
 logic one_button_sync, ten_button_sync, pause_sync, clear_sync;
