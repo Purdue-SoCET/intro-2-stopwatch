@@ -3,9 +3,9 @@ module bcd_counter_tb ();
     logic [7:0] num;
     logic enable;
     logic clear;
-    logic nRST;
+    logic nRST = 1;
     logic clk;
-    logic second_tick;
+    logic second_tick = 1;
 
 	task advance_clock();
 		#(1);
@@ -19,10 +19,14 @@ module bcd_counter_tb ();
 
     initial begin
         //give us a second tick
-        for (int i=0; i < 20_000_000; i++)
+        for (int i=0; i < 20_000_000; i++) begin 
             advance_clock();
+            
+            if (second_tick == 1) begin
+                $display("Binary representation: %b, Decimal representation %d%d", num, num[7:4], num[3:0]);
+            end
+        end
 
-        $display("%b", num);
     end
 
 endmodule
