@@ -5,8 +5,8 @@ module decoder (
 );
 
 logic [3:0] tens, units;
-assign tens  = num / 10;  
-assign units = num % 10;  
+assign tens  = num[7:4];
+assign units = num[3:0];
 
 digits tens_decoder(.in(tens), .out(seg1));
 digits units_decoder(.in(units), .out(seg0));
@@ -27,5 +27,5 @@ assign out = (
   (in == 4'd5) ? 7'b1101101 : 
   (in == 4'd6) ? 7'b1111101 : 
   (in == 4'd7) ? 7'b0000111 : 
-  (in == 4'd8) ? 7'd1111111 : 7'd1100111);
+  (in == 4'd8) ? 7'b1111111 : 7'b1100111);
 endmodule
