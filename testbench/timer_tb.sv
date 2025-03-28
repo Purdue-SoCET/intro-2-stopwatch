@@ -23,9 +23,9 @@ module tb_timer();
 	endtask
 
 	task reset_clock();
-		n_rst = 1;
+		n_rst = 0
 		#(1);
-		n_rst = 0;
+		n_rst = 1;
 	endtask
 
 	integer i;

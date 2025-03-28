@@ -13,7 +13,7 @@ module timer
 	
 	always @(posedge clk, posedge n_rst) begin
 		//reset timer
-		if (n_rst == 1) begin
+		if (n_rst == 0) begin
 			cycles <= 0; 
 			second_tick <= 0;
 		end else if (enable == 1) begin // if timing is enabled
