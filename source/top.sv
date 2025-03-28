@@ -1,6 +1,8 @@
 module top (
     input logic one_button, ten_button, pause_button, clear_button, clk,
-    output logic [6:0] seg_0, seg_1
+    output logic [6:0] seg_0, seg_1,
+    output logic [7:0] bcd_num,
+    output logic [4:0] fsm_state
     // add other input/output as necessary
 );
 
@@ -13,7 +15,7 @@ logic div_enable = 1;
 logic second_tick; //second tick provided by clock divider
 
 //for counter
-logic [7:0] bcd_num;
+//logic [7:0] bcd_num;
 
 
 //button syncs
@@ -41,7 +43,8 @@ fsm fsm_inst1 (
     .one_run_push(one_run_push), 
     .ten_run_push(ten_run_push), 
     .pause_push(pause_push),
-    .clear_push(clear_push)
+    .clear_push(clear_push),
+    .state(fsm_state)
 ); 
 
 

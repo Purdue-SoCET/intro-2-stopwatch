@@ -9,7 +9,8 @@ input logic clr,
 output logic ten_run_push,
 output logic one_run_push,
 output logic pause_push,
-output logic clear_push
+output logic clear_push,
+output logic [4:0] state
 ); 
 
   typedef enum logic [4:0] {CLEAR, ONERUN, TENRUN, PAUSE} State;
@@ -53,5 +54,6 @@ output logic clear_push
    assign ten_run_push = (currentState == TENRUN);
    assign pause_push = (currentState == PAUSE);
    assign clear_push = (currentState == CLEAR);
+   assign state = currentState;
 endmodule
 

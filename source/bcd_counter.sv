@@ -23,6 +23,7 @@ module bcd_counter
       end else begin
         adder_output = adder_output + 8'b1;
       end
+
     end
 
     if (count_reg == 8'd99) 
