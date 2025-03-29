@@ -20,10 +20,6 @@ output logic [4:0] state
   always_ff @(posedge clk, negedge n_rst)
      if(!n_rst) currentState <= CLEAR;
      else currentState <= nextState;
-  
-  
-
-
   always_comb
 
    case(currentState)

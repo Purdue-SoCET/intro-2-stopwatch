@@ -11,7 +11,6 @@ logic ten_run_push, one_run_push, pause_push, clear_push; //fsm
 logic n_rst = 1;
 
 //for clock
-logic div_enable = 1;
 logic second_tick; //second tick provided by clock divider
 
 //for counter
@@ -27,7 +26,7 @@ synch_edge_det sync_clear (.clk(clk), .n_rst(n_rst), .async_in(clear_button), .e
 //clock divider
 timer clock_div (
     .clk(clk),
-    .enable(div_enable),
+    .enable(~pause_push),
     .n_rst(n_rst),
     .second_tick(second_tick)
 );
