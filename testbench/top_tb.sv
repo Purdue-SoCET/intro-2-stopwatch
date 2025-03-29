@@ -31,7 +31,7 @@ module top_tb();
         end 
         ten_button = 1'b0;
     endtask
-
+    
     task press_pause_button();
         $display("Pressed pause button!");
         pause_button = 1'b1;
@@ -48,6 +48,12 @@ module top_tb();
             advance_clock();
         end 
         clear_button = 1'b0;
+    endtask
+
+    task pass_seconds(int seconds); 
+        for (int i=0; i < seconds * 10_000_000; i++) begin
+            advance_clock();
+        end 
     endtask
 
     top DUT (
@@ -67,18 +73,21 @@ module top_tb();
         $display("Begin test: count to 5");
         press_one_button();
         for (int a = 0; a < 5; a++) begin
-            for (int i = 0; i < 10_000_000; i++) begin
-                advance_clock();
-            end
+            pass_seconds(1);
             $display("%b %b %b", seg_1, seg_0, bcd_num);
         end
 
         $display("Begin test: pause");
         press_pause_button();
         for (int a = 0; a < 5; a++) begin
-            for (int i = 0; i < 10_000_000; i++) begin
-                advance_clock();
-            end
+            pass_seconds(1);
+            $display("%b %b %b", seg_1, seg_0, bcd_num);
+        end
+
+        $display("Begin test: unpause");
+        press_one_button();
+        for (int a = 0; a < 5; a++) begin 
+            pass_seconds(1);
             $display("%b %b %b", seg_1, seg_0, bcd_num);
         end
     end
