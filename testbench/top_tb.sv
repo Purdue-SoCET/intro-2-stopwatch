@@ -74,21 +74,29 @@ module top_tb();
         press_one_button();
         for (int a = 0; a < 5; a++) begin
             pass_seconds(1);
-            $display("%b %b %b", seg_1, seg_0, bcd_num);
+            $display("%d: %b %b %b", a+1, seg_1, seg_0, bcd_num);
         end
 
-        $display("Begin test: pause");
+        $display("\n\nBegin test: pause");
         press_pause_button();
         for (int a = 0; a < 5; a++) begin
             pass_seconds(1);
-            $display("%b %b %b", seg_1, seg_0, bcd_num);
+            $display("%d: %b %b %b", 5, seg_1, seg_0, bcd_num);
         end
 
-        $display("Begin test: unpause");
+        $display("\nBegin test: unpause");
         press_one_button();
         for (int a = 0; a < 5; a++) begin 
             pass_seconds(1);
-            $display("%b %b %b", seg_1, seg_0, bcd_num);
+            $display("%d: %b %b %b", a+5, seg_1, seg_0, bcd_num);
+        end
+
+        $display("\nBegin test: ten-second-mode");
+        press_clear_button(); 
+        press_ten_button();
+        for (int a = 0; a < 50; a++) begin 
+            pass_seconds(1);
+            $display("%d: %b %b %b", a+1, seg_1, seg_0, bcd_num);
         end
     end
 endmodule

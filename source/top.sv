@@ -23,13 +23,6 @@ synch_edge_det sync_ten (.clk(clk), .n_rst(n_rst), .async_in(ten_button), .edge_
 synch_edge_det sync_pause (.clk(clk), .n_rst(n_rst), .async_in(pause_button), .edge_flag(pause_sync));
 synch_edge_det sync_clear (.clk(clk), .n_rst(n_rst), .async_in(clear_button), .edge_flag(clear_sync));
 
-//clock divider
-timer clock_div (
-    .clk(clk),
-    .enable(~pause_push),
-    .n_rst(n_rst),
-    .second_tick(second_tick)
-);
 
 //fsm state monitor
 fsm fsm_inst1 (
@@ -46,6 +39,14 @@ fsm fsm_inst1 (
     .state(fsm_state)
 ); 
 
+//clock divider
+timer clock_div (
+    .clk(clk),
+    .enable(~pause_push),
+    .ten_sec_enable(ten_run_push), 
+    .n_rst(n_rst),
+    .second_tick(second_tick)
+);
 
 //counter
 bcd_counter counter (
