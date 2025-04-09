@@ -1,14 +1,17 @@
 module top (
-    input logic one_button, ten_button, pause_button, clear_button, clk,
-    output logic [6:0] seg_0, seg_1,
-    output logic [7:0] bcd_num,
-    output logic [4:0] fsm_state
+    input logic [3:0] BTN,
+    input logic CLK_100MHZ,
+    output logic [15:0] LED
     // add other input/output as necessary
 );
 
 logic one_button_sync, ten_button_sync, pause_sync, clear_sync; //sync
 logic ten_run_push, one_run_push, pause_push, clear_push; //fsm
 logic n_rst = 1;
+logic clk;
+logic [4:0] fsm_state;
+logic [6:0] seg_0, seg_1;
+logic [7:0] bcd_num;
 
 //for clock
 logic second_tick; //second tick provided by clock divider
@@ -18,10 +21,10 @@ logic second_tick; //second tick provided by clock divider
 
 
 //button syncs
-synch_edge_det sync_one (.clk(clk), .n_rst(n_rst), .async_in(one_button), .edge_flag(one_button_sync));
-synch_edge_det sync_ten (.clk(clk), .n_rst(n_rst), .async_in(ten_button), .edge_flag(ten_button_sync));
-synch_edge_det sync_pause (.clk(clk), .n_rst(n_rst), .async_in(pause_button), .edge_flag(pause_sync));
-synch_edge_det sync_clear (.clk(clk), .n_rst(n_rst), .async_in(clear_button), .edge_flag(clear_sync));
+synch_edge_det sync_one (.clk(clk), .n_rst(n_rst), .async_in(BTN[0]), .edge_flag(one_button_sync));
+synch_edge_det sync_ten (.clk(clk), .n_rst(n_rst), .async_in(BTN[1]), .edge_flag(ten_button_sync));
+synch_edge_det sync_pause (.clk(clk), .n_rst(n_rst), .async_in(BTN[2]), .edge_flag(pause_sync));
+synch_edge_det sync_clear (.clk(clk), .n_rst(n_rst), .async_in(BTN[3]), .edge_flag(clear_sync));
 
 
 //fsm state monitor
@@ -65,6 +68,10 @@ decoder counter_decoder (
 );
 
 
+
+assign clk = CLK_100MHZ;
+assign LED[15:9] = seg_1;
+assign LED[6:0] = seg_0;
 
 /*
 module fsm

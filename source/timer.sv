@@ -15,7 +15,7 @@ module timer
 	
 	assign threshold = (ten_sec_enable) ? TEN_FREQUENCY : FREQUENCY;
 	
-	always @(posedge clk, posedge n_rst) begin
+	always @(posedge clk, negedge n_rst) begin
 		//reset timer
 		if (n_rst == 0) begin
 			cycles <= 0; 
