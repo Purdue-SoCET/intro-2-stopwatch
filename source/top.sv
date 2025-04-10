@@ -1,8 +1,11 @@
 module top (
     input logic [3:0] BTN,
     input logic CLK_100MHZ,
-    output logic [15:0] LED
-    output logic [3:0] D0_AN,
+    output logic [15:0] LED,
+    output logic D0_AN_0,
+    output logic D0_AN_1,
+    output logic D0_AN_2,
+    output logic D0_AN_3,
     output logic [7:0] D0_SEG
     // add other input/output as necessary
 );
@@ -14,6 +17,7 @@ logic clk;
 logic [4:0] fsm_state;
 logic [6:0] seg_0, seg_1;
 logic [7:0] bcd_num;
+logic [3:0] D0_AN;
 
 //for clock
 logic second_tick; //second tick provided by clock divider
@@ -70,15 +74,21 @@ decoder counter_decoder (
 );
 
 
-seg_scan(
+seg_scan digit_scanner(
     .clk(clk),
     .num_0(seg_0),
     .num_1(seg_1),
     .seg_out(D0_SEG),
     .seg_enable(D0_AN)
-)
+);
 
 assign clk = CLK_100MHZ;
+assign D0_AN_0 = D0_AN[1];
+assign D0_AN_1 = D0_AN[0];
+assign D0_AN_2 = 1;
+assign D0_AN_3 = 1;
+assign LED[15:9] = seg_1;
+assign LED[7:0] = seg_0;
 
 /*
 module fsm

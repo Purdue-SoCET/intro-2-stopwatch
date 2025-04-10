@@ -15,15 +15,15 @@ task run_10000_cycles();
     end
 endtask 
 
-seg_scan DUT(.clk(clk), .num_0(num_0), .num_1(num_1), .seg_out(num_out), .seg_enable(enable), .counter(counter));
+seg_scan DUT(.clk(clk), .num_0(num_0), .num_1(num_1), .seg_out(num_out), .seg_enable(enable));
 
 initial begin
 
-    $display("%b %b %d\n", num_out, enable, counter); 
+    $display("%b %b\n", num_out, enable); 
     run_10000_cycles();
-    $display("%b %b %d\n", num_out, enable, counter); 
+    $display("%b %b\n", num_out, enable); 
     run_10000_cycles();
-    $display("%b %b %d\n", num_out, enable, counter); 
+    $display("%b %b\n", num_out, enable); 
     run_10000_cycles();
 end
 endmodule

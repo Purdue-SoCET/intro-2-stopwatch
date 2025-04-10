@@ -18,7 +18,7 @@ module digits(
     output logic [6:0] out
 );                           
 
-assign out = (
+assign out = ~(
   (in == 4'd0) ? 7'b0111111 : 
   (in == 4'd1) ? 7'b0000110 :
   (in == 4'd2) ? 7'b1011011 : 
