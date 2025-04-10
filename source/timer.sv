@@ -1,5 +1,5 @@
 module timer
-	# (parameter FREQUENCY = 10_000_000, parameter TEN_FREQUENCY = 100_000_000
+	# (parameter FREQUENCY = 100_000_000, parameter TEN_FREQUENCY = 1_000_000_000
 	)
 	(
 		input logic clk, 
@@ -10,8 +10,8 @@ module timer
 	);
 
 
-	logic [26:0] cycles;
-	logic [26:0] threshold;
+	logic [27:0] cycles;
+	logic [27:0] threshold;
 	
 	assign threshold = (ten_sec_enable) ? TEN_FREQUENCY : FREQUENCY;
 	

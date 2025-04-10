@@ -2,6 +2,8 @@ module top (
     input logic [3:0] BTN,
     input logic CLK_100MHZ,
     output logic [15:0] LED
+    output logic [3:0] D0_AN,
+    output logic [7:0] D0_SEG
     // add other input/output as necessary
 );
 
@@ -68,10 +70,15 @@ decoder counter_decoder (
 );
 
 
+seg_scan(
+    .clk(clk),
+    .num_0(seg_0),
+    .num_1(seg_1),
+    .seg_out(D0_SEG),
+    .seg_enable(D0_AN)
+)
 
 assign clk = CLK_100MHZ;
-assign LED[15:9] = seg_1;
-assign LED[6:0] = seg_0;
 
 /*
 module fsm
