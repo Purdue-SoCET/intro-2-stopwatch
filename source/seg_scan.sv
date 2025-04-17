@@ -10,7 +10,7 @@ module seg_scan
     );
     
 
-
+    //65565 Clock cycles for funsies, about 2kHZ switching frequency
     logic [15:0] period_counter; 
     logic ctrl = 0;
 

@@ -10,8 +10,8 @@ module timer
 	);
 
 
-	logic [27:0] cycles;
-	logic [27:0] threshold;
+	logic [31:0] cycles;
+	logic [31:0] threshold;
 	
 	assign threshold = (ten_sec_enable) ? TEN_FREQUENCY : FREQUENCY;
 	
@@ -26,8 +26,13 @@ module timer
 				second_tick <= 1;
 				cycles <= 0;
 			end else begin
+				//situation where we are inside of a 10 tick when we shouldnt be
+				if (!ten_sec_enable && cycles > FREQUENCY) begin
+					cycles <= cycles % FREQUENCY;
+				end else begin
+					cycles <= cycles + 1;
+				end
 				second_tick <= 0;
-				cycles <= cycles + 1;
 			end
 		end
 	end 
