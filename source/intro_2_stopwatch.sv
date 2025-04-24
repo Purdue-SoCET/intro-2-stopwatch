@@ -15,7 +15,7 @@ logic ten_run_push, one_run_push, pause_push, clear_push; //fsm
 logic n_rst = 1;
 logic clk;
 logic [4:0] fsm_state;
-logic [6:0] seg_0, seg_1;
+logic [7:0] seg_0, seg_1;
 logic [7:0] bcd_num;
 logic [3:0] D0_AN;
 
@@ -83,7 +83,6 @@ seg_scan digit_scanner(
 );
 
 assign clk = CLK_100MHZ;
-assign D0_SEG[7] = 1;
 assign D0_AN_0 = D0_AN[1];
 assign D0_AN_1 = D0_AN[0];
 assign D0_AN_2 = 1;
