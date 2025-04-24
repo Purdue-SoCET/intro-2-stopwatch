@@ -81,7 +81,7 @@ seg_scan digit_scanner(
     .seg_enable(D0_AN)
 );
 
-assign clk = CLK_100MHZ;
+assign clk = CLK_10MHZ;
 assign D0_AN_0 = D0_AN[1];
 assign D0_AN_1 = D0_AN[0];
 assign D0_AN_2 = 1;
