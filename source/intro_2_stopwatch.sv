@@ -1,7 +1,6 @@
 module intro_2_stopwatch (
     input logic [3:0] BTN,
     input logic CLK_100MHZ,
-    output logic [15:0] LED,
     output logic D0_AN_0,
     output logic D0_AN_1,
     output logic D0_AN_2,
@@ -87,8 +86,6 @@ assign D0_AN_0 = D0_AN[1];
 assign D0_AN_1 = D0_AN[0];
 assign D0_AN_2 = 1;
 assign D0_AN_3 = 1;
-assign LED[15:9] = seg_1;
-assign LED[7:0] = seg_0;
 
 /*
 module fsm
