@@ -1,6 +1,6 @@
 module intro_2_stopwatch (
     input logic [3:0] BTN,
-    input logic CLK_100MHZ,
+    input logic CLK_10MHZ,
     output logic D0_AN_0,
     output logic D0_AN_1,
     output logic D0_AN_2,
