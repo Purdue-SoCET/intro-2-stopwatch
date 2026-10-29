@@ -1,7 +1,7 @@
 # Project Documentation
 
 ## [Team Name]
-* [Name]
+* [Name ]
 * [Name]
 * [Name]
 * [Name]
